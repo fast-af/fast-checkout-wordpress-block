@@ -2,7 +2,7 @@
 /**
  * Bootstrap PHPUnit related dependencies.
  *
- * @package BlockScaffolding
+ * @package FastCoBlock
  */
 
 WP_Mock::bootstrap();

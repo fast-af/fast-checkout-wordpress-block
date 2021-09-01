@@ -2,10 +2,10 @@
 /**
  * Plugin class.
  *
- * @package BlockScaffolding
+ * @package FastCoBlock
  */
 
-namespace XWP\BlockScaffolding;
+namespace XWP\FastCoBlock;
 
 /**
  * WordPress plugin interface.
@@ -169,7 +169,7 @@ class Plugin {
 		static $meta;
 
 		if ( ! isset( $meta ) ) {
-			$meta = get_file_data( $this->file );
+			$meta = get_file_data( $this->file, array(), $field );
 		}
 
 		if ( isset( $field ) ) {

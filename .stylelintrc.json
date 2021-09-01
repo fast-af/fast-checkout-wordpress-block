@@ -1,0 +1,21 @@
+{
+	"extends": "stylelint-config-sass-guidelines",
+	"plugins": [
+		"stylelint-scss"
+	],
+	"rules": {
+		"property-no-vendor-prefix": null,
+		"value-no-vendor-prefix": null,
+		"at-rule-no-vendor-prefix": null,
+		"selector-max-compound-selectors": null,
+		"selector-max-id": 1,
+		"selector-no-qualifying-type": null,
+		"max-nesting-depth": null,
+		"string-quotes": "double",
+		"scss/selector-no-redundant-nesting-selector": true,
+		"scss/at-extend-no-missing-placeholder": true,
+		"scss/dollar-variable-no-missing-interpolation": true,
+		"scss/at-mixin-argumentless-call-parentheses": "never",
+		"scss/dollar-variable-pattern": ["[a-zA-Z]+", {"ignore": "local"}]
+	}
+}

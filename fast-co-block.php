@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name: Block Scaffolding
- * Description: Block Scaffolding for WordPress.
- * Version: 1.0.0
+ * Plugin Name: Fast.co Block
+ * Description: A block for inserting Fast.co checkout experience.
+ * Version: 0.1.0
  * Author: XWP
- * Author URI: https://github.com/xwp/block-scaffolding-wp
- * Text Domain: block-scaffolding
+ * Author URI: https://xwp.co
+ * Text Domain: fast-co-block
  *
- * @package BlockScaffolding
+ * @package FastCoBlock
  */
 
-namespace XWP\BlockScaffolding;
+namespace XWP\FastCoBlock;
 
 // Support for site-level autoloading.
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {

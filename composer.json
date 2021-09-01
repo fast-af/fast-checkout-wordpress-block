@@ -1,6 +1,6 @@
 {
-  "name": "xwp/block-scaffolding-wp",
-  "description": "Block Scaffolding for WordPress.",
+  "name": "xwp/fast-co-block",
+  "description": "Fast.co Block",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "minimum-stability": "dev",
@@ -21,12 +21,12 @@
   },
   "autoload": {
     "psr-4": {
-      "XWP\\BlockScaffolding\\": "php/"
+      "XWP\\FastCoBlock\\": "php/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "XWP\\BlockScaffolding\\": "tests/php/"
+      "XWP\\FastCoBlock\\": "tests/php/"
     }
   },
   "scripts": {

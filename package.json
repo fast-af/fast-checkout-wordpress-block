@@ -1,17 +1,17 @@
 {
-  "name": "@xwp/block-scaffolding-wp",
+  "name": "@xwp/fast-co-block",
   "version": "1.0.0",
   "private": true,
   "description": "Block Scaffolding for WordPress.",
   "author": "XWP",
   "license": "GPL-2.0-or-later",
   "bugs": {
-    "url": "https://github.com/xwp/block-scaffolding-wp/issues"
+    "url": "https://github.com/xwp/fast-co-block/issues"
   },
-  "homepage": "https://github.com/xwp/block-scaffolding-wp#readme",
+  "homepage": "https://github.com/xwp/fast-co-block#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xwp/block-scaffolding-wp.git"
+    "url": "git+https://github.com/xwp/fast-co-block.git"
   },
   "engines": {
     "node": ">=10",
@@ -31,14 +31,21 @@
     "test:php": "composer test -- --no-coverage",
     "test:php:coverage": "composer test",
     "report-coverage": "composer coverage",
-    "docker": "docker-compose run --workdir=/var/www/html/wp-content/plugins/block-scaffolding-wp wordpress",
-    "vagrant": "vagrant ssh -- COMPOSE_FILE=/vagrant/docker-compose.yml docker-compose run --workdir=/var/www/html/wp-content/plugins/block-scaffolding-wp wordpress"
+    "docker": "docker-compose run --workdir=/var/www/html/wp-content/plugins/fast-co-block wordpress",
+    "vagrant": "vagrant ssh -- COMPOSE_FILE=/vagrant/docker-compose.yml docker-compose run --workdir=/var/www/html/wp-content/plugins/fast-co-block wordpress"
   },
   "devDependencies": {
-    "@wordpress/block-editor": "3.6.0",
-    "@wordpress/eslint-plugin": "3.4.1",
-    "@wordpress/scripts": "7.0.1",
-    "npm-run-all": "4.1.5"
-  },
-  "dependencies": {}
+    "@wordpress/api-fetch": "^5.2.1",
+    "@wordpress/block-editor": "^7.0.1",
+    "@wordpress/blocks": "^11.0.1",
+    "@wordpress/components": "^16.0.0",
+    "@wordpress/element": "^4.0.0",
+    "@wordpress/eslint-plugin": "^9.1.1",
+    "@wordpress/i18n": "^4.2.1",
+    "@wordpress/scripts": "^18.0.0",
+    "eslint": "^7.32.0",
+    "npm-run-all": "^4.1.5",
+    "stylelint": "^13.13.1",
+    "stylelint-config-sass-guidelines": "^8.0.0"
+  }
 }

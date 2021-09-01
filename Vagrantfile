@@ -6,5 +6,5 @@ load File.join(
 )
 
 Vagrant.configure(2) do |config|
-	config.vm.hostname = "block-scaffolding-wp"
+	config.vm.hostname = "fast-co-block"
 end
