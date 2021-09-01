@@ -4,16 +4,6 @@
 - WordPress 5.0+ or the [Gutenberg Plugin](https://wordpress.org/plugins/gutenberg/).
 - PHP 7.2 or later, [Composer](https://getcomposer.org) and [Node.js](https://nodejs.org) for dependency management.
 - [Docker](https://docs.docker.com/install/) or [Vagrant](https://www.vagrantup.com) with [VirtualBox](https://www.virtualbox.org) for a local development environment.
-
-We suggest using a software package manager for installing the development dependencies such as [Homebrew](https://brew.sh) on MacOS:
-
-	brew install php composer node docker docker-compose
-
-or [Chocolatey](https://chocolatey.org) for Windows:
-
-	choco install php composer node nodejs docker-compose
-
-
 ## Development
 
 1. Clone the plugin repository.
@@ -71,12 +61,3 @@ All of these commands can be run inside the Docker or Vagrant environments by pr
 - `npm run build` to build the plugin JS and CSS assets. Use `npm run dev` to watch and re-build as you work.
 
 - `npm run lint` to lint both PHP and JS files. Use `npm run lint:js` and `npm run lint:php` to lint JS and PHP seperately.
-
-- `npm run test` to run both PHP and JS tests without coverage reporting. Use `npm run test:js` and `npm run test:php` to run tests for JS and PHP seperately.
-
-- `npm run test-with-coverage` to run both PHP and JS tests with coverage reporting.
-
-
-## Continuous Integration
-
-We use [Travis CI](https://travis-ci.com) to lint all code, run tests and report test coverage to [Coveralls](https://coveralls.io) as defined in [`.travis.yml`](.travis.yml).
