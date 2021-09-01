@@ -1,8 +1,4 @@
-# Block Scaffolding for WordPress
-
-[![Build Status](https://travis-ci.com/xwp/block-scaffolding-wp.svg?branch=master)](https://travis-ci.com/xwp/block-scaffolding-wp)
-[![Coverage Status](https://coveralls.io/repos/github/xwp/block-scaffolding-wp/badge.svg?branch=master)](https://coveralls.io/github/xwp/block-scaffolding-wp?branch=master)
-
+# Fast.co Gutenberg Block
 ## Requirements
 
 - WordPress 5.0+ or the [Gutenberg Plugin](https://wordpress.org/plugins/gutenberg/).
