@@ -42,7 +42,7 @@ class Enqueue {
 	public function enqueue_scripts() {
 		if ( is_singular() || is_single() ) {
 			$post_id = get_queried_object_id();
-			if ( has_block( 'xwp/fast-co-block', $post_id ) ) {
+			if ( has_block( Plugin::GUTENBERG_NAMESPACE . '/checkout-button', $post_id ) ) {
 				// Load in header or insert via GTM.
 				wp_enqueue_script(
 					'fast-co-script',

@@ -41,6 +41,8 @@ class Router {
 		$enqueue->enqueue_init();
 
 		add_action( 'init', array( $block, 'register_block' ) );
+
+		BlockPatterns::init();
 	}
 
 	/**

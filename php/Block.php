@@ -23,7 +23,7 @@ class Block {
 		}
 
 		register_block_type(
-			'xwp/fast-co-block',
+			Plugin::GUTENBERG_NAMESPACE . '/checkout-button',
 			array(
 				'attributes'      => array(
 					'appId'     => array(
