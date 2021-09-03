@@ -5,6 +5,7 @@ import Logo from './components/Logo';
 
 // Import CSS
 import './editor.scss';
+import './patterns.scss';
 
 const FastCoBlock = (props) => {
 	const { setAttributes, attributes } = props;

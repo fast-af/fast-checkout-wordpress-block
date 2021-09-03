@@ -33,7 +33,6 @@ class Enqueue {
 	 */
 	public function enqueue_init() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-
 	}
 
 	/**
@@ -42,6 +41,7 @@ class Enqueue {
 	public function enqueue_scripts() {
 		if ( is_singular() || is_single() ) {
 			$post_id = get_queried_object_id();
+
 			if ( has_block( Plugin::GUTENBERG_NAMESPACE . '/checkout-button', $post_id ) ) {
 				// Load in header or insert via GTM.
 				wp_enqueue_script(
@@ -52,6 +52,14 @@ class Enqueue {
 					false
 				);
 			}
+
+			wp_enqueue_style(
+				'fast-co-patterns',
+				$this->plugin->asset_url( 'js/dist/patterns.css' ),
+				array(),
+				$this->plugin->Meta( 'Version' ),
+				false
+			);
 		}
 	}
 }
