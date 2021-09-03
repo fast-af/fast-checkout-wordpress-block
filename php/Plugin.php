@@ -13,6 +13,13 @@ namespace XWP\FastCoBlock;
 class Plugin {
 
 	/**
+	 * Namespace used to register entities in the Gutenberg context.
+	 *
+	 * @var string
+	 */
+	const GUTENBERG_NAMESPACE = 'fast-co';
+
+	/**
 	 * Absolute path to the main plugin file.
 	 *
 	 * @var string
