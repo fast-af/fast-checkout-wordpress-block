@@ -30,14 +30,12 @@ class BlockPatterns {
 		register_block_pattern(
 			Plugin::GUTENBERG_NAMESPACE . '/single-product',
 			[
-				'title'       => __( 'Single Product with Fast Checkout', 'fast-co-block' ),
+				'title'       => __( 'Fast Checkout: Single Product', 'fast-co-block' ),
 				'description' => __( 'Renders a collection of blocks representing a single item for sale along with the Fast Checkout button.', 'fast-co-block' ),
-				'content'     => '<!-- wp:group {"className":"fast-product"} --><div class="wp-block-group fast-product"><!-- wp:image {"className":"fast-product__image"} --><figure class="wp-block-image fast-product__image"><img alt=""/></figure><!-- /wp:image --><!-- wp:heading {"className":"fast-product__title"} --><h2 class="fast-product__title">Product Title</h2><!-- /wp:heading --><!-- wp:paragraph {"className":"fast-product__description"} --><p class="fast-product__description">Product description text.</p><!-- /wp:paragraph --><!-- wp:paragraph {"className":"fast-product__price"} --><p class="fast-product__price">$50.00</p><!-- /wp:paragraph --><!-- wp:fast-co/checkout-button {"appId":"","productId":"","uniqueId":""} /--></div><!-- /wp:group -->',
+				'content'     => '<!-- wp:group {"className":"fast-product"} --><div class="wp-block-group fast-product"><!-- wp:image {"className":"fast-product__image"} --><figure class="wp-block-image fast-product__image"><img alt=""/></figure><!-- /wp:image --><!-- wp:heading {"className":"fast-product__title"} --><h2 class="fast-product__title">Product Title</h2><!-- /wp:heading --><!-- wp:heading {"className":"fast-product__subtitle","level":3} --><h3 class="fast-product__subtitle">Product Subtitle</h3><!-- /wp:heading --><!-- wp:paragraph {"className":"fast-product__description"} --><p class="fast-product__description">Product description text.</p><!-- /wp:paragraph --><!-- wp:paragraph {"className":"fast-product__price"} --><p class="fast-product__price">$50.00</p><!-- /wp:paragraph --><!-- wp:fast-co/checkout-button {"appId":"","productId":"","uniqueId":""} /--></div><!-- /wp:group -->',
 				'categories'  => [ Plugin::GUTENBERG_NAMESPACE ],
 				'keywords'    => [ 'product', 'fast' ],
 			]
 		);
 	}
 }
-
-
