@@ -1,4 +1,4 @@
-const blockIcon = () => {
+export default () => {
 	return (
 		<svg
 			width={40}
@@ -15,5 +15,3 @@ const blockIcon = () => {
 		</svg>
 	);
 };
-
-export default blockIcon;

@@ -1,0 +1,63 @@
+// Single Product block.
+.fast-co-single-product {
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--fast-row-gap, 8px) var(--fast-column-gap, 16px);
+  grid-auto-rows: auto;
+  grid-template-areas:
+    "image"
+    "category"
+    "title"
+    "price"
+    "description"
+    "button";
+
+  @media screen and (min-width: 900px) {
+    grid-template-areas:
+      "image ."
+      "image category"
+      "image title"
+      "image price"
+      "image button"
+      "image ."
+      "description description";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto auto auto auto 1fr auto;
+    justify-items: start;
+
+    > * {
+      --global--spacing-vertical: 0;
+
+      display: block;
+      width: 100%;
+    }
+  }
+
+  > :nth-child(1) {
+    grid-area: image;
+  }
+
+  > :nth-child(2) {
+    grid-area: category;
+  }
+
+  > :nth-child(3) {
+    grid-area: title;
+  }
+
+  > :nth-child(4) {
+    grid-area: price;
+  }
+
+  > :nth-child(5) {
+    grid-area: button;
+  }
+
+  > :nth-child(6) {
+    grid-area: description;
+  }
+
+  &__image {
+    font-size: 0;
+  }
+}
