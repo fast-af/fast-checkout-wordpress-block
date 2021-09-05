@@ -53,8 +53,16 @@ class Enqueue {
 				);
 			}
 
+			wp_enqueue_script(
+				'fast-co-custom-elements',
+				$this->plugin->asset_url( 'js/dist/custom-elements.js' ),
+				array(),
+				$this->plugin->Meta( 'Version' ),
+				false
+			);
+
 			wp_enqueue_style(
-				'fast-co-patterns',
+				'fast-co-blocks',
 				$this->plugin->asset_url( 'js/dist/front-end.css' ),
 				array(),
 				$this->plugin->Meta( 'Version' ),

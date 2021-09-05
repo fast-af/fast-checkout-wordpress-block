@@ -1,0 +1,17 @@
+.fast-checkout-button__container {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 8px 16px;
+
+  fast-quantity,
+  .fast-quantity {
+    flex-basis: 200px;
+    flex-grow: 1;
+  }
+
+  fast-checkout-button,
+  .fast-co-button-preview {
+    flex-basis: 200px;
+    flex-grow: 50;
+  }
+}
