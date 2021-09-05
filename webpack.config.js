@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 /**
@@ -13,7 +12,7 @@ module.exports = {
 	...defaultConfig,
 	entry: {
 		editor: './js/src/editor.js',
-		patterns: './js/src/patterns.js',
+		'front-end': './js/src/front-end.js',
 	},
 	output: {
 		path: path.resolve(__dirname, 'js/dist'),

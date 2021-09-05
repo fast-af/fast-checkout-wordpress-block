@@ -55,7 +55,7 @@ class Enqueue {
 
 			wp_enqueue_style(
 				'fast-co-patterns',
-				$this->plugin->asset_url( 'js/dist/patterns.css' ),
+				$this->plugin->asset_url( 'js/dist/front-end.css' ),
 				array(),
 				$this->plugin->Meta( 'Version' ),
 				false
