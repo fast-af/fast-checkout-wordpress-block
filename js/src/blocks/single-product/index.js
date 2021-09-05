@@ -7,7 +7,7 @@ import blockIcon from '../../assets/fastIcon';
 
 // Constants.
 export const name = 'fast-co/single-product';
-export const title = __('Fast.co: Checkout Button', 'fast-co-block');
+export const title = __('Fast.co: Single Product', 'fast-co-block');
 export const classNameBase = 'fast-co-single-product';
 
 // Utils.
