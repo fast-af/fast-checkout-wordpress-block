@@ -40,10 +40,12 @@ export default ({ attributes, setAttributes }) => {
 				content: '<strong>Product Category</strong>',
 				className: `${classNameBase}__category`,
 				level: 3,
-				fontSize: 'small',
 				style: {
 					color: {
 						text: '#dd5eb9',
+					},
+					typography: {
+						fontSize: 18,
 					},
 				},
 			},
@@ -54,7 +56,11 @@ export default ({ attributes, setAttributes }) => {
 				content: '<strong>Product Title</strong>',
 				className: `${classNameBase}__title`,
 				level: 2,
-				fontSize: 'large',
+				style: {
+					typography: {
+						fontSize: 24,
+					},
+				},
 			},
 		],
 		[
@@ -62,6 +68,11 @@ export default ({ attributes, setAttributes }) => {
 			{
 				content: '<strong>$50.00</strong>',
 				className: `${classNameBase}__price`,
+				style: {
+					typography: {
+						fontSize: 20,
+					},
+				},
 			},
 		],
 		['fast-co/checkout-button', {}],
@@ -70,7 +81,11 @@ export default ({ attributes, setAttributes }) => {
 			{
 				content: 'Product description',
 				className: `${classNameBase}__description`,
-				fontSize: 'extra-small',
+				style: {
+					typography: {
+						fontSize: 16,
+					},
+				},
 			},
 		],
 	];

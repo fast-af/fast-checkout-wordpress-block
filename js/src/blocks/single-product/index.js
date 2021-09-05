@@ -28,15 +28,15 @@ export default {
 		},
 		borderRadius: {
 			type: 'integer',
-			default: 2,
+			default: 4,
 		},
 		paddingSize: {
 			type: 'integer',
-			default: 16,
+			default: 24,
 		},
 		columnGap: {
 			type: 'integer',
-			default: 16,
+			default: 32,
 		},
 		rowGap: {
 			type: 'integer',

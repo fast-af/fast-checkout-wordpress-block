@@ -33,6 +33,14 @@ export default {
 		uniqueId: {
 			type: 'string',
 		},
+		defaultQuantity: {
+			type: 'integer',
+			default: 1,
+		},
+		quantityUiEnabled: {
+			type: 'boolean',
+			default: false,
+		},
 	},
 	edit,
 	save,
