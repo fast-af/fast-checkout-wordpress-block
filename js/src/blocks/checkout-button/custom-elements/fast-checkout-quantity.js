@@ -32,6 +32,9 @@ template.innerHTML = `
 	button:focus {
 		background: #ddd;
 	}
+	input[type=number] {
+		-moz-appearance: textfield;
+	}
 	input[type="number"],
 	input[type="number"]:active,
 	input[type="number"]:focus {
