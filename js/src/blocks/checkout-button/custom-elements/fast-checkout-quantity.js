@@ -4,6 +4,7 @@ const template = document.createElement('template');
 template.innerHTML = `
 	<style>
 	:host {
+		border: 1px solid #ddd;
 		border-radius: 8px;
 		display: grid;
 		grid-template-columns: 60px minmax(0, 1fr) 60px;
