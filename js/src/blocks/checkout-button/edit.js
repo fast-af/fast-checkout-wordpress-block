@@ -1,12 +1,12 @@
 // Hooks.
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { useEffect } from '@wordpress/element';
 
 // Utils.
 import { __ } from '@wordpress/i18n';
 
 // Components.
-import { TextControl, ToggleControl } from '@wordpress/components';
+import { TextControl, ToggleControl, PanelBody } from '@wordpress/components';
 
 // Images.
 import Logo from './components/Logo';
@@ -15,7 +15,13 @@ export default ({ attributes, setAttributes, clientId, isSelected }) => {
 	const blockProps = useBlockProps({
 		className: 'fast-checkout-button',
 	});
-	const { appId, productId, defaultQuantity, quantityUiEnabled } = attributes;
+	const {
+		appId,
+		productId,
+		defaultQuantity,
+		quantityUiEnabled,
+		fastButtonDisabled,
+	} = attributes;
 
 	useEffect(() => {
 		// Get unique ID for the block. Props @generateblocks.
@@ -53,60 +59,84 @@ export default ({ attributes, setAttributes, clientId, isSelected }) => {
 		</div>
 	);
 
+	const inspectorControls = (
+		<>
+			<InspectorControls>
+				<PanelBody
+					title={__('Fast.co Options', 'fast-co-block')}
+					initialOpen={false}
+				>
+					<ToggleControl
+						label={__('Disabled', 'fast-co-block')}
+						checked={fastButtonDisabled}
+						onChange={(value) => {
+							setAttributes({
+								fastButtonDisabled: value,
+							});
+						}}
+					/>
+				</PanelBody>
+			</InspectorControls>
+		</>
+	);
+
 	const editForm = (
-		<div className="fast-co-block-edit-form">
-			<div className="fast-co-block-logo-svg">
-				<Logo />
+		<>
+			{inspectorControls}
+			<div className="fast-co-block-edit-form">
+				<div className="fast-co-block-logo-svg">
+					<Logo />
+				</div>
+				<TextControl
+					label={__('App ID', 'fast-co-block')}
+					value={appId}
+					onChange={(value) => {
+						setAttributes({
+							appId: value,
+						});
+					}}
+					help={__(
+						'Please enter the App ID for the product.',
+						'fast-co-block'
+					)}
+				/>
+				<TextControl
+					label={__('Product ID', 'fast-co-block')}
+					value={productId}
+					onChange={(value) => {
+						setAttributes({
+							productId: value,
+						});
+					}}
+					help={__(
+						'Please enter the Product ID for the product.',
+						'fast-co-block'
+					)}
+				/>
+				<TextControl
+					label={__('Default Quantity', 'fast-co-block')}
+					value={defaultQuantity}
+					onChange={(value) => {
+						setAttributes({
+							defaultQuantity: value,
+						});
+					}}
+					help={__(
+						'How many products will be purchased when the button is clicked.',
+						'fast-co-block'
+					)}
+				/>
+				<ToggleControl
+					label={__('Show Quantity UI', 'fast-co-block')}
+					checked={quantityUiEnabled}
+					onChange={(value) => {
+						setAttributes({
+							quantityUiEnabled: value,
+						});
+					}}
+				/>
 			</div>
-			<TextControl
-				label={__('App ID', 'fast-co-block')}
-				value={appId}
-				onChange={(value) => {
-					setAttributes({
-						appId: value,
-					});
-				}}
-				help={__(
-					'Please enter the App ID for the product.',
-					'fast-co-block'
-				)}
-			/>
-			<TextControl
-				label={__('Product ID', 'fast-co-block')}
-				value={productId}
-				onChange={(value) => {
-					setAttributes({
-						productId: value,
-					});
-				}}
-				help={__(
-					'Please enter the Product ID for the product.',
-					'fast-co-block'
-				)}
-			/>
-			<TextControl
-				label={__('Default Quantity', 'fast-co-block')}
-				value={defaultQuantity}
-				onChange={(value) => {
-					setAttributes({
-						defaultQuantity: value,
-					});
-				}}
-				help={__(
-					'How many products will be purchased when the button is clicked.',
-					'fast-co-block'
-				)}
-			/>
-			<ToggleControl
-				label={__('Show Quantity UI', 'fast-co-block')}
-				checked={quantityUiEnabled}
-				onChange={(value) => {
-					setAttributes({
-						quantityUiEnabled: value,
-					});
-				}}
-			/>
-		</div>
+		</>
 	);
 
 	return <div {...blockProps}>{isSelected ? editForm : previewButton}</div>;

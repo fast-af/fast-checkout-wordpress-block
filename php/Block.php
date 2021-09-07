@@ -27,18 +27,20 @@ class Block {
 			Plugin::GUTENBERG_NAMESPACE . '/checkout-button',
 			array(
 				'attributes'      => array(
-					'appId'     => array(
+					'appId'              => array(
 						'type'    => 'string',
 						'default' => '',
 					),
-					'productId' => array(
+					'productId'          => array(
 						'type'    => 'string',
 						'default' => '',
 					),
-					'uniqueId'  => array(
+					'uniqueId'           => array(
 						'type'    => 'string',
 						'default' => '',
 					),
+					'fastButtonDisabled' => 'boolean',
+					'default'            => false,
 				),
 				'render_callback' => array( $this, 'block_output' ),
 				'editor_script'   => 'fast-co-block-js',
@@ -53,13 +55,13 @@ class Block {
 	 * @param array $attributes Block attributes.
 	 */
 	public function block_output( array $attributes ) {
-		$default_attributes = [
+		$default_attributes = array(
 			'appId'             => '',
 			'productId'         => '',
 			'uniqueId'          => '',
 			'quantityUiEnabled' => false,
 			'defaultQuantity'   => 1,
-		];
+		);
 		$attributes         = array_merge( $default_attributes, $attributes );
 
 		$app_id           = $attributes['appId'];
