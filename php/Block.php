@@ -13,6 +13,8 @@ namespace XWP\FastCoBlock;
 class Block {
 	const CSS_CLASSNAME = 'fast-checkout-button';
 
+	const QUANTITY_PLACEHOLDER = '%QUANTITY_LOGIC%';
+
 	/**
 	 * Registers the block on server.
 	 */
@@ -80,11 +82,14 @@ class Block {
 	}
 
 	/**
-	 * Output the block on the front-end.
+	 * Generates Fast.js configuration object from
+	 * block attributes.
 	 *
 	 * @param array $attributes Block attributes.
+	 *
+	 * @return array Fast.js checkout configuration object.
 	 */
-	public function block_output( array $attributes ) {
+	protected static function get_configuration( $attributes ) {
 		$default_attributes = array(
 			'appId'             => '',
 			'productId'         => '',
@@ -92,68 +97,34 @@ class Block {
 			'quantityUiEnabled' => false,
 			'defaultQuantity'   => 1,
 		);
-		$attributes         = array_merge( $default_attributes, $attributes );
 
-		$app_id           = $attributes['appId'];
-		$product_id       = $attributes['productId'];
-		$variant_id       = $attributes['variantId'];
-		$product_options  = $attributes['productOptions'];
-		$unique_id        = sprintf( 'fast_%s', $attributes['uniqueId'] );
-		$show_quantity_ui = boolval( $attributes['quantityUiEnabled'] );
-		$default_quantity = intval( $attributes['defaultQuantity'] );
-		$disabled         = boolval( $attributes['fastButtonDisabled'] );
-		$dark_mode        = boolval( $attributes['darkMode'] );
-		$affiliate_ids    = $attributes['affiliateIds'];
-		$coupon_id        = $attributes['couponId'];
+		$attributes = array_merge( $default_attributes, $attributes );
 
-		if ( $default_quantity <= 0 ) {
-			$default_quantity = 1;
-		}
+		$app_id        = $attributes['appId'];
+		$product_id    = $attributes['productId'];
+		$variant_id    = $attributes['variantId'];
+		$unique_id     = sprintf( 'fast_%s', $attributes['uniqueId'] );
+		$affiliate_ids = $attributes['affiliateIds'];
+		$coupon_id     = $attributes['couponId'];
 
-		$container_css_classes = [
-			self::CSS_CLASSNAME . '__container',
-		];
-		if ( $dark_mode ) {
-			$container_css_classes[] = sprintf( '%s--dark', $container_css_classes[0] );
-		}
-		if ( $disabled ) {
-			$container_css_classes[] = sprintf( '%s--disabled', $container_css_classes[0] );
-		}
-
-		$quantity_logic_placeholder = '%QUANTITY_LOGIC%';
-		$fast_configuration_object  = [
+		$fast_configuration_object = [
 			'appId'    => $app_id,
 			'buttonId' => $unique_id,
 			'products' => [
 				[
 					'id'       => $product_id,
-					'quantity' => $quantity_logic_placeholder,
+					'quantity' => self::QUANTITY_PLACEHOLDER,
 				],
 			],
 		];
 
+		$fast_configuration_object = self::add_product_options(
+			$fast_configuration_object,
+			$attributes
+		);
+
 		if ( $variant_id ) {
 			$fast_configuration_object['products'][0]['variantId'] = $variant_id;
-		}
-
-		if ( $product_options ) {
-			$product_options = preg_split( '~[\r\n]+~', $product_options );
-			$mapped_options  = [];
-
-			foreach ( $product_options as $option_pair ) {
-				$split_key_value = preg_split( '~\s*:\s*~', $option_pair );
-
-				if ( 2 === count( $split_key_value ) && is_string( $split_key_value[0] ) ) {
-					$mapped_options[] = [
-						'id'    => $split_key_value[0],
-						'value' => $split_key_value[1],
-					];
-				}
-			}
-
-			if ( $mapped_options ) {
-				$fast_configuration_object['products'][0]['options'] = $mapped_options;
-			}
 		}
 
 		if ( $affiliate_ids ) {
@@ -172,6 +143,78 @@ class Block {
 
 		if ( $coupon_id ) {
 			$fast_configuration_object['couponCode'] = $coupon_id;
+		}
+
+		return $fast_configuration_object;
+	}
+
+	/**
+	 * Adds product options to the Checkout Button configuration
+	 * from block attributes.
+	 *
+	 * @param array $configuration Configuration object.
+	 * @param array $attributes    Block attributes.
+	 *
+	 * @return array Altered configuration object.
+	 */
+	protected static function add_product_options( $configuration, $attributes ) {
+		$product_options = $attributes['productOptions'];
+
+		if ( $product_options ) {
+			$product_options = preg_split( '~[\r\n]+~', $product_options );
+			$mapped_options  = [];
+
+			foreach ( $product_options as $option_pair ) {
+				$split_key_value = preg_split( '~\s*:\s*~', $option_pair );
+
+				if ( 2 === count( $split_key_value ) && is_string( $split_key_value[0] ) ) {
+					$mapped_options[] = [
+						'id'    => $split_key_value[0],
+						'value' => $split_key_value[1],
+					];
+				}
+			}
+
+			if ( $mapped_options ) {
+				$configuration['products'][0]['options'] = $mapped_options;
+			}
+		}
+
+		return $configuration;
+	}
+
+	/**
+	 * Output the block on the front-end.
+	 *
+	 * @param array $attributes Block attributes.
+	 */
+	public function block_output( array $attributes ) {
+		$fast_configuration_object = self::get_configuration( $attributes );
+
+		/**
+		 * Default values used in the button JS code.
+		 */
+		$disabled         = boolval( $attributes['fastButtonDisabled'] );
+		$dark_mode        = boolval( $attributes['darkMode'] );
+		$show_quantity_ui = boolval( $attributes['quantityUiEnabled'] );
+		$unique_id        = sprintf( 'fast_%s', $attributes['uniqueId'] );
+		$default_quantity = intval( $attributes['defaultQuantity'] );
+
+		if ( $default_quantity <= 0 ) {
+			$default_quantity = 1;
+		}
+
+		/**
+		 * Class names appended to the button container.
+		 */
+		$container_css_classes = [
+			self::CSS_CLASSNAME . '__container',
+		];
+		if ( $dark_mode ) {
+			$container_css_classes[] = sprintf( '%s--dark', $container_css_classes[0] );
+		}
+		if ( $disabled ) {
+			$container_css_classes[] = sprintf( '%s--disabled', $container_css_classes[0] );
 		}
 
 		ob_start();
@@ -220,7 +263,7 @@ class Block {
 							Fast.checkout(
 							<?php
 								$interpolated_config = preg_replace(
-									sprintf( '~["\']%s["\']~', preg_quote( $quantity_logic_placeholder ) ),
+									sprintf( '~["\']%s["\']~', preg_quote( self::QUANTITY_PLACEHOLDER ) ),
 									'quantity > 0 ? quantity : 1',
 									wp_json_encode( $fast_configuration_object, JSON_PRETTY_PRINT )
 								);
