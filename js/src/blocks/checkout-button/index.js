@@ -30,6 +30,12 @@ export default {
 		productId: {
 			type: 'string',
 		},
+		variantId: {
+			type: 'string',
+		},
+		productOptions: {
+			type: 'string',
+		},
 		uniqueId: {
 			type: 'string',
 		},
@@ -40,6 +46,20 @@ export default {
 		quantityUiEnabled: {
 			type: 'boolean',
 			default: false,
+		},
+		fastButtonDisabled: {
+			type: 'boolean',
+			default: false,
+		},
+		darkMode: {
+			type: 'boolean',
+			default: false,
+		},
+		affiliateIds: {
+			type: 'string',
+		},
+		couponId: {
+			type: 'string',
 		},
 	},
 	edit,

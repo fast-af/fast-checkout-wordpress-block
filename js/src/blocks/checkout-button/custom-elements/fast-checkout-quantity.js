@@ -4,19 +4,21 @@ const template = document.createElement('template');
 template.innerHTML = `
 	<style>
 	:host {
-		border: 1px solid #ddd;
+		background: var(--fast-button-quantity-bg, #fff);
+		border: 1px solid var(--fast-button-quantity-border-color, #ddd);
 		border-radius: 8px;
 		display: grid;
+		color: var(--fast-button-quantity-color, #000);
 		grid-template-columns: 60px minmax(0, 1fr) 60px;
 		overflow: hidden;
 		width: 100%;
 	}
 	button {
-		background: #fff;
+		background: var(--fast-button-quantity-bg, #fff);
 		border: 0 solid;
-		border-right: 1px solid #ddd;
+		border-right: 1px solid var(--fast-button-quantity-border-color, #ddd);
 		box-sizing: border-box;
-		color: #000;
+		color: var(--fast-button-quantity-color, #000);
 		cursor: pointer;
 		font-size: 24px;
 		height: 50px;
@@ -27,14 +29,16 @@ template.innerHTML = `
 		width: 60px;
 	}
 	input+button {
-		border-left: 1px solid #ddd;
+		border-left: 1px solid var(--fast-button-quantity-border-color, #ddd);
 	}
 	button:hover,
 	button:focus {
-		background: #ddd;
+		background: var(--fast-button-quantity-border-color, #ddd);
 	}
 	input[type=number] {
 		-moz-appearance: textfield;
+		background: var(--fast-button-quantity-bg, #fff);
+		color: var(--fast-button-quantity-color, #000);
 	}
 	input[type="number"],
 	input[type="number"]:active,
