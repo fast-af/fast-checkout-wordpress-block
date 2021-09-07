@@ -1,3 +1,20 @@
+.fast-checkout-button__container--dark {
+  --fast-button-bg: #fff;
+  --fast-button-color: #000;
+  --fast-button-icon-color: #000;
+  --fast-button-border-color: #000;
+  --fast-button-quantity-bg: #000;
+  --fast-button-quantity-color: #fff;
+  --fast-button-quantity-border-color: #444;
+}
+
+.fast-checkout-button__container--disabled {
+  --fast-button-bg: rgba(0, 0, 0, 0.25);
+  --fast-button-color: #fff;
+  --fast-button-icon-color: #000;
+  --fast-button-border-color: transparent;
+}
+
 .fast-checkout-button__container {
   display: flex;
   flex-flow: row wrap;
