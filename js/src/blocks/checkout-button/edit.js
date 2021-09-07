@@ -21,6 +21,7 @@ export default ({ attributes, setAttributes, clientId, isSelected }) => {
 		defaultQuantity,
 		quantityUiEnabled,
 		fastButtonDisabled,
+		darkMode,
 	} = attributes;
 
 	useEffect(() => {
@@ -67,11 +68,20 @@ export default ({ attributes, setAttributes, clientId, isSelected }) => {
 					initialOpen={false}
 				>
 					<ToggleControl
-						label={__('Disabled', 'fast-co-block')}
+						label={__('Show Button as Disabled', 'fast-co-block')}
 						checked={fastButtonDisabled}
 						onChange={(value) => {
 							setAttributes({
 								fastButtonDisabled: value,
+							});
+						}}
+					/>
+					<ToggleControl
+						label={__('Enable Dark Mode', 'fast-co-block')}
+						checked={darkMode}
+						onChange={(value) => {
+							setAttributes({
+								darkMode: value,
 							});
 						}}
 					/>

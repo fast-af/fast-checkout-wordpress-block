@@ -39,8 +39,14 @@ class Block {
 						'type'    => 'string',
 						'default' => '',
 					),
-					'fastButtonDisabled' => 'boolean',
-					'default'            => false,
+					'fastButtonDisabled' => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'darkMode'           => array(
+						'type'    => 'boolean',
+						'default' => 'false,',
+					),
 				),
 				'render_callback' => array( $this, 'block_output' ),
 				'editor_script'   => 'fast-co-block-js',
