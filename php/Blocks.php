@@ -8,76 +8,62 @@
 namespace XWP\FastCoBlock;
 
 /**
- * Plugin Block.
+ * Class responsible for blocks definition.
  */
-class Block {
-	const CSS_CLASSNAME = 'fast-checkout-button';
-
+class Blocks {
+	const CSS_CLASSNAME        = 'fast-checkout-button';
 	const QUANTITY_PLACEHOLDER = '%QUANTITY_LOGIC%';
+
+	/**
+	 * The instantiated plugin class.
+	 *
+	 * @var Plugin
+	 */
+	public $plugin;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param Plugin $plugin The plugin class.
+	 */
+	public function __construct( Plugin $plugin ) {
+		$this->plugin = $plugin;
+	}
 
 	/**
 	 * Registers the block on server.
 	 */
-	public function register_block() {
+	public function register_blocks() {
 
 		// Check if the register function exists.
 		if ( ! function_exists( 'register_block_type' ) ) {
 			return;
 		}
 
+		add_filter(
+			'block_categories_all',
+			function( $block_categories ) {
+				$block_categories[] = [
+					'slug'  => 'fast-co',
+					'title' => __( 'Fast.co', 'fast-co-block' ),
+					'icon'  => null,
+				];
+				return $block_categories;
+			},
+			10,
+			1
+		);
+
 		register_block_type(
-			Plugin::GUTENBERG_NAMESPACE . '/checkout-button',
+			$this->plugin->dir() . '/js/src/blocks/checkout-button',
 			array(
-				'attributes'      => array(
-					'appId'              => array(
-						'type'    => 'string',
-						'default' => '',
-					),
-					'productId'          => array(
-						'type'    => 'string',
-						'default' => '',
-					),
-					'variantId'          => array(
-						'type'    => 'string',
-						'default' => '',
-					),
-					'productOptions'     => array(
-						'type'    => 'string',
-						'default' => '',
-					),
-					'uniqueId'           => array(
-						'type'    => 'string',
-						'default' => '',
-					),
-					'defaultQuantity'    => array(
-						'type'    => 'integer',
-						'default' => 1,
-					),
-					'quantityUiEnabled'  => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-					'fastButtonDisabled' => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-					'darkMode'           => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-					'affiliateIds'       => array(
-						'type'    => 'string',
-						'default' => '',
-					),
-					'couponId'           => array(
-						'type'    => 'string',
-						'default' => '',
-					),
-				),
 				'render_callback' => array( $this, 'block_output' ),
-				'editor_script'   => 'fast-co-block-js',
-				'editor_style'    => 'fast-co-block-css',
 			)
+		);
+
+		register_block_type(
+			$this->plugin->dir() . '/js/src/blocks/single-product',
+			array()
 		);
 	}
 
@@ -90,16 +76,6 @@ class Block {
 	 * @return array Fast.js checkout configuration object.
 	 */
 	protected static function get_configuration( $attributes ) {
-		$default_attributes = array(
-			'appId'             => '',
-			'productId'         => '',
-			'uniqueId'          => '',
-			'quantityUiEnabled' => false,
-			'defaultQuantity'   => 1,
-		);
-
-		$attributes = array_merge( $default_attributes, $attributes );
-
 		$app_id        = $attributes['appId'];
 		$product_id    = $attributes['productId'];
 		$variant_id    = $attributes['variantId'];
@@ -189,6 +165,17 @@ class Block {
 	 * @param array $attributes Block attributes.
 	 */
 	public function block_output( array $attributes ) {
+		if ( empty( $attributes['appId'] ) || empty( $attributes['productId'] ) ) {
+			return sprintf(
+				'<div class="%s">%s</div>',
+				esc_attr( self::CSS_CLASSNAME ),
+				esc_html(
+					__( 'The checkout button is not configured.' ),
+					'fast-co-block'
+				)
+			);
+		}
+
 		$fast_configuration_object = self::get_configuration( $attributes );
 
 		/**
