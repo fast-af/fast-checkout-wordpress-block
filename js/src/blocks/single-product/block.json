@@ -1,0 +1,56 @@
+{
+  "apiVersion": 2,
+  "name": "fast-co/single-product",
+  "title": "Single Product",
+  "category": "fast-co",
+  "description": "A single product listing using Fast.co checkout.",
+  "keywords": [ "fast", "single", "product" ],
+  "version": "1.0.0",
+  "textdomain": "fast-co-block",
+  "attributes": {
+    "borderColor": {
+			"type": "string",
+			"default": "#9d8af5"
+		},
+		"borderSize": {
+			"type": "integer",
+			"default": 1
+		},
+		"borderRadius": {
+			"type": "integer",
+			"default": 4
+		},
+		"paddingSize": {
+			"type": "integer",
+			"default": 24
+		},
+		"columnGap": {
+			"type": "integer",
+			"default": 32
+		},
+		"rowGap": {
+			"type": "integer",
+			"default": 8
+		},
+		"style": {
+			"type": "object",
+			"default": {
+				"color": {
+					"background": "#FFFFFF",
+					"text": "#000000"
+				}
+			}
+		}
+	},
+  "supports": {
+		"alignWide": true,
+		"color": {
+			"gradients": true
+		}
+	},
+  "example": {},
+  "editorScript": "file:./../../../dist/single-product-editor.js",
+  "script": "file:./../../../dist/single-product-front-end.js",
+  "editorStyle": "file:./../../../dist/single-product-editor.css",
+  "style": "file:./../../../dist/single-product-front-end.css"
+}

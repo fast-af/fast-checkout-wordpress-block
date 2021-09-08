@@ -60,14 +60,6 @@ class Enqueue {
 				$this->plugin->Meta( 'Version' ),
 				false
 			);
-
-			wp_enqueue_style(
-				'fast-co-blocks',
-				$this->plugin->asset_url( 'js/dist/front-end.css' ),
-				array(),
-				$this->plugin->Meta( 'Version' ),
-				false
-			);
 		}
 	}
 }

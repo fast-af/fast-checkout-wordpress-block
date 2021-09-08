@@ -1,0 +1,61 @@
+{
+  "apiVersion": 2,
+  "name": "fast-co/checkout-button",
+  "title": "Checkout Button",
+  "category": "fast-co",
+  "description": "Renders a Fast.co checkout button, optionally along with a quantity selector component.",
+  "keywords": [ "fast", "checkout", "button" ],
+  "version": "1.0.0",
+  "textdomain": "fast-co-block",
+  "attributes": {
+		"appId": {
+			"type": "string",
+      "default": ""
+		},
+		"productId": {
+			"type": "string",
+      "default": ""
+		},
+		"variantId": {
+			"type": "string",
+      "default": ""
+		},
+		"productOptions": {
+			"type": "string",
+      "default": ""
+		},
+		"uniqueId": {
+			"type": "string",
+      "default": ""
+		},
+		"defaultQuantity": {
+			"type": "integer",
+			"default": 1
+		},
+		"quantityUiEnabled": {
+			"type": "boolean",
+			"default": false
+		},
+		"fastButtonDisabled": {
+			"type": "boolean",
+			"default": false
+		},
+		"darkMode": {
+			"type": "boolean",
+			"default": false
+		},
+		"affiliateIds": {
+			"type": "string",
+      "default": ""
+		},
+		"couponId": {
+			"type": "string",
+      "default": ""
+		}
+	},
+  "example": {},
+  "editorScript": "file:./../../../dist/checkout-button-editor.js",
+  "script": "file:./../../../dist/checkout-button-front-end.js",
+  "editorStyle": "file:./../../../dist/checkout-button-editor.css",
+  "style": "file:./../../../dist/checkout-button-front-end.css"
+}
