@@ -43,11 +43,12 @@ class Blocks {
 		add_filter(
 			'block_categories_all',
 			function( $block_categories ) {
-				$block_categories[] = [
+				$block_args = [
 					'slug'  => 'fast-co',
 					'title' => __( 'Fast.co', 'fast-co-block' ),
 					'icon'  => null,
 				];
+				array_unshift( $block_categories, $block_args );
 				return $block_categories;
 			},
 			10,
