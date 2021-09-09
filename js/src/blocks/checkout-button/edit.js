@@ -2,6 +2,13 @@
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { useEffect } from '@wordpress/element';
 
+import fastIcon from '../../assets/fastIcon';
+
+(function () {
+	wp.blocks.updateCategory('fast-co', { icon: fastIcon });
+})();
+
+
 // Utils.
 import { __ } from '@wordpress/i18n';
 
