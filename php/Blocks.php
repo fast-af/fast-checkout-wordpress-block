@@ -15,6 +15,13 @@ class Blocks {
 	const QUANTITY_PLACEHOLDER = '%QUANTITY_LOGIC%';
 
 	/**
+	 * Fast Checkout button endpoint URL for `amp-iframe`.
+	 *
+	 * @var string
+	 */
+	const AMP_IFRAME_ENDPOINT_URL = '';
+
+	/**
 	 * The instantiated plugin class.
 	 *
 	 * @var Plugin
@@ -180,6 +187,22 @@ class Blocks {
 		$fast_configuration_object = self::get_configuration( $attributes );
 
 		/**
+		 * Check if it's an AMP request.
+		 */
+		$is_amp = function_exists( 'amp_is_request' ) && amp_is_request();
+
+		if ( $is_amp && ! empty( self::AMP_IFRAME_ENDPOINT_URL ) ) {
+			$amp_proxy_url = add_query_arg(
+				[
+					'app_id'     => $fast_configuration_object['appId'],
+					'product_id' => $fast_configuration_object['products'][0]['id'],
+					'quantity'   => 1,
+				],
+				self::AMP_IFRAME_ENDPOINT_URL
+			);
+		}
+
+		/**
 		 * Default values used in the button JS code.
 		 */
 		$disabled         = boolval( $attributes['fastButtonDisabled'] );
@@ -209,59 +232,72 @@ class Blocks {
 		?>
 		<div class="<?php echo esc_attr( self::CSS_CLASSNAME ); ?>">
 			<div class="<?php echo join( ' ', $container_css_classes ); ?>">
-				<?php if ( $show_quantity_ui ) : ?>
-					<fast-quantity
-						id="<?php echo esc_attr( $unique_id ); ?>-quantity"
-						quantity="<?php echo intval( $default_quantity ); ?>"
-					></fast-quantity>
+				<?php if ( $is_amp && ! empty( $amp_proxy_url ) ) : ?>
+					<iframe
+						width="auto"
+						height="50"
+						frameborder="0"
+						class="fast-checkout-button"
+						sandbox="allow-scripts allow-same-origin allow-popups"
+						src="<?php echo esc_url( $amp_proxy_url ); ?>"
+					></iframe>
+				<?php else : ?>
+					<?php if ( $show_quantity_ui ) : ?>
+						<fast-quantity
+							id="<?php echo esc_attr( $unique_id ); ?>-quantity"
+							quantity="<?php echo intval( $default_quantity ); ?>"
+						></fast-quantity>
+					<?php endif; ?>
+					<fast-checkout-button
+						id="<?php echo esc_attr( $unique_id ); ?>"
+						<?php echo $dark_mode ? ' dark' : ''; ?>
+						<?php echo $disabled ? ' disabled' : ''; ?>
+					></fast-checkout-button>
 				<?php endif; ?>
-				<fast-checkout-button
-					id="<?php echo esc_attr( $unique_id ); ?>"
-					<?php echo $dark_mode ? ' dark' : ''; ?>
-					<?php echo $disabled ? ' disabled' : ''; ?>
-				></fast-checkout-button>
 			</div>
-			<script>
-				(function() {
-					const buttonId = <?php echo wp_json_encode( $unique_id ); ?>;
-					const quantityId = `${buttonId}-quantity`;
-					<?php
-						/**
-						 * Extract individual affiliate IDs and output them in a format
-						 * that is expected by the checkout code.
-						 */
+			<?php if ( ! $is_amp ) : ?>
+				<script>
+					(function() {
+						const buttonId = <?php echo wp_json_encode( $unique_id ); ?>;
+						const quantityId = `${buttonId}-quantity`;
+						<?php
+							/**
+							 * Extract individual affiliate IDs and output them in a format
+							 * that is expected by the checkout code.
+							 */
 
-					?>
+						?>
 
-					document
-						.getElementById(buttonId)
-						.addEventListener( 'click', (e) => {
-							const isDisabled = e.target.hasAttribute('disabled')
+						document
+							.getElementById(buttonId)
+							.addEventListener( 'click', (e) => {
+								const isDisabled = e.target.hasAttribute('disabled')
 
-							if ( isDisabled ) {
-								e.preventDefault();
-								return;
-							}
+								if ( isDisabled ) {
+									e.preventDefault();
+									return;
+								}
 
-							const quantityEl = document.getElementById(quantityId);
-							const quantity = quantityEl
-								? parseInt(quantityEl.getAttribute('quantity'), 10)
-								: <?php echo wp_json_encode( $default_quantity ); ?>
+								const quantityEl = document.getElementById(quantityId);
+								const quantity = quantityEl
+									? parseInt(quantityEl.getAttribute('quantity'), 10)
+									: <?php echo wp_json_encode( $default_quantity ); ?>
 
-							Fast.checkout(
-							<?php
-								$interpolated_config = preg_replace(
-									sprintf( '~["\']%s["\']~', preg_quote( self::QUANTITY_PLACEHOLDER ) ),
-									'quantity > 0 ? quantity : 1',
-									wp_json_encode( $fast_configuration_object, JSON_PRETTY_PRINT )
+								Fast.checkout(
+								<?php
+									$interpolated_config = preg_replace(
+										sprintf( '~["\']%s["\']~', preg_quote( self::QUANTITY_PLACEHOLDER ) ),
+										'quantity > 0 ? quantity : 1',
+										wp_json_encode( $fast_configuration_object, JSON_PRETTY_PRINT )
+									);
+
+									echo $interpolated_config;
+								?>
 								);
-
-								echo $interpolated_config;
-							?>
-							);
-						} );
-				})()
-			</script>
+							} );
+					})()
+				</script>
+			<?php endif; ?>
 		</div>
 		<?php
 
